@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test:atlas": "playwright test"
+    "test:atlas": "playwright test",
+    "test:atlas:fast": "node tests/atlas-endpoint-smoke.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.2"
