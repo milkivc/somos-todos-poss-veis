@@ -1,14 +1,6 @@
 name: Deploy Google Apps Script
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'Código.js'
-      - 'Interface.html'
-      - 'appsscript.json'
-      - '.github/workflows/deploy-appscript.yml'
   workflow_dispatch:
 
 permissions:
