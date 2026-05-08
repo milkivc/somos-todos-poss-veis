@@ -1,12 +1,11 @@
 /**
- * Atlas Vivo MILK — correção oficial de assets e seres folclóricos.
+ * Atlas Vivo MILK — manifesto oficial REAL de assets e seres folclóricos.
  * Fonte única: pastas oficiais Drive.
- * Este ficheiro existe para corrigir a configuração antes do deploy, sem reescrever a Interface.
  *
  * REGRA OBRIGATÓRIA DE ASSETS:
  * Todos os assets públicos, dispositivos, MILKs e seres folclóricos devem ser PNG/WebP com fundo completamente transparente.
  * É proibido usar imagem com fundo branco, halo opaco, margem sólida, caixa visível ou recorte não transparente.
- * Antes de qualquer deploy, validar visualmente: transparência real, nome oficial, file_id, URL completa Drive e public_url.
+ * Antes de qualquer deploy, validar visualmente: transparência real, nome oficial, file_id, drive_url real e public_url real.
  */
 
 OFFICIAL_ASSET_IDS = {
@@ -20,7 +19,6 @@ OFFICIAL_ASSET_IDS = {
   cow_base: '1HlVxB0qqy2Wee1HodoNxNNcocRE0XaVP',
   cow_brilho: '1Fwd7qlGbv0FpSRSv6sjsMCZuobkKsloM',
   cow_destaque: '1gx4M4uq-anojZQfK3rGkm-bY4FIe76lK',
-
   alma_penada: '1Er32suHoKUSX-OlfjFYARATLc4cRgHdZ',
   fefe_felicidade: '1QD3Qv3lDBmfjeP6MIFKl7lv6FaLF0Mtu',
   cavalum: '18oXmYkjQlsn5w3rZqFv9EQ73TatlTdDX',
@@ -38,60 +36,291 @@ OFFICIAL_ASSET_IDS = {
   personagem_preto_chapeu: '1L-RJLWFnRw7Ikiikpi8LPOObYSNX-AXu'
 };
 
-function officialDriveViewUrl_(fileId) {
-  return 'https://drive.google.com/file/d/' + fileId + '/view?usp=drivesdk';
-}
-
-function officialPublicAssetUrl_(fileId) {
-  return 'https://lh3.googleusercontent.com/d/' + fileId;
-}
-
-function makeOfficialAsset_(slug, nome, fileId, pasta, tipo, funcao) {
-  return {
-    slug: slug,
-    nome: nome,
-    file_id: fileId,
-    drive_url: officialDriveViewUrl_(fileId),
-    public_url: officialPublicAssetUrl_(fileId),
-    pasta_id: pasta,
-    tipo: tipo,
-    funcao: funcao || '',
-    formato_obrigatorio: 'PNG/WebP com canal alfa',
-    fundo_obrigatorio: 'completamente_transparente',
-    proibido: 'fundo branco; halo opaco; margem sólida; caixa visível; recorte não transparente',
-    validacao_pre_deploy: 'confirmar nome oficial, file_id, drive_url, public_url e transparência real antes de gerar GS/HTML'
-  };
-}
+var OFFICIAL_ASSET_MANIFEST_REAL = [
+  {
+    slug: 'seal',
+    nome: 'ATLAS_VIVO_MILK.png',
+    file_id: '1evCywhX7YuZOkkAaUGIgUD0oDgplx2OR',
+    drive_url: 'https://drive.google.com/file/d/1evCywhX7YuZOkkAaUGIgUD0oDgplx2OR/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1evCywhX7YuZOkkAaUGIgUD0oDgplx2OR',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'selo',
+    funcao: 'selo público e assinatura visual do Atlas',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'fuco',
+    nome: 'Fuco.png',
+    file_id: '19Z9aBzL5XBw9ccF4yycYHQcO-NMvOGdt',
+    drive_url: 'https://drive.google.com/file/d/19Z9aBzL5XBw9ccF4yycYHQcO-NMvOGdt/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/19Z9aBzL5XBw9ccF4yycYHQcO-NMvOGdt',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'dispositivo',
+    funcao: 'Crónicas Cãotadas por Fucô',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'galeria',
+    nome: 'Galeria_Diletante.png',
+    file_id: '1My_R4s7pTQzBO3lRtJUvdcxWslX9nUTq',
+    drive_url: 'https://drive.google.com/file/d/1My_R4s7pTQzBO3lRtJUvdcxWslX9nUTq/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1My_R4s7pTQzBO3lRtJUvdcxWslX9nUTq',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'dispositivo',
+    funcao: 'Galeria Diletante como motor palavra-imagem-bilhete',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'festival',
+    nome: 'dado_sem_lado_rosa.png',
+    file_id: '1JCtY-PpP9TWrNDU7yCxCGoJsZWlSrcvp',
+    drive_url: 'https://drive.google.com/file/d/1JCtY-PpP9TWrNDU7yCxCGoJsZWlSrcvp/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1JCtY-PpP9TWrNDU7yCxCGoJsZWlSrcvp',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'dispositivo',
+    funcao: 'Dado Sem Lado, jogo territorial e regra absurda',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'reizinho',
+    nome: 'Reizinho.png',
+    file_id: '1OnoVEJ2d5Dk9KfuVKukMVyGQZug_ZaC-',
+    drive_url: 'https://drive.google.com/file/d/1OnoVEJ2d5Dk9KfuVKukMVyGQZug_ZaC-/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1OnoVEJ2d5Dk9KfuVKukMVyGQZug_ZaC-',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'dispositivo',
+    funcao: 'O Reizinho de sainha e coroa de sardinha',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'nuno',
+    nome: 'Nuno.png',
+    file_id: '1xJqceY1v2j1uMnkPx9K0GpQT5Vmq79eM',
+    drive_url: 'https://drive.google.com/file/d/1xJqceY1v2j1uMnkPx9K0GpQT5Vmq79eM/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1xJqceY1v2j1uMnkPx9K0GpQT5Vmq79eM',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'escuta',
+    funcao: 'escuta pública e recolha geral',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'escuta',
+    nome: 'Nuno.png',
+    file_id: '1xJqceY1v2j1uMnkPx9K0GpQT5Vmq79eM',
+    drive_url: 'https://drive.google.com/file/d/1xJqceY1v2j1uMnkPx9K0GpQT5Vmq79eM/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1xJqceY1v2j1uMnkPx9K0GpQT5Vmq79eM',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'escuta',
+    funcao: 'alias de Nuno para compatibilidade no HTML/GS',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'cow_base',
+    nome: 'vaquinha_constelacao_base.png',
+    file_id: '1HlVxB0qqy2Wee1HodoNxNNcocRE0XaVP',
+    drive_url: 'https://drive.google.com/file/d/1HlVxB0qqy2Wee1HodoNxNNcocRE0XaVP/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1HlVxB0qqy2Wee1HodoNxNNcocRE0XaVP',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'milk',
+    funcao: 'MILK base para convite territorial',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'cow_brilho',
+    nome: 'vaquinha_constelacao_brilho.png',
+    file_id: '1Fwd7qlGbv0FpSRSv6sjsMCZuobkKsloM',
+    drive_url: 'https://drive.google.com/file/d/1Fwd7qlGbv0FpSRSv6sjsMCZuobkKsloM/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1Fwd7qlGbv0FpSRSv6sjsMCZuobkKsloM',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'milk',
+    funcao: 'MILK brilhante para nova crónica ou conteúdo recente',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'cow_destaque',
+    nome: 'vaquinha_constelacao_destaque.png',
+    file_id: '1gx4M4uq-anojZQfK3rGkm-bY4FIe76lK',
+    drive_url: 'https://drive.google.com/file/d/1gx4M4uq-anojZQfK3rGkm-bY4FIe76lK/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1gx4M4uq-anojZQfK3rGkm-bY4FIe76lK',
+    pasta_id: '1TAL61MgC0MY8CuzYriJK_jThGf_Sulgh',
+    tipo: 'milk',
+    funcao: 'MILK em destaque para Galeria Diletante ou foco curatorial',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'alma_penada',
+    nome: 'Alma_penada.png',
+    file_id: '1Er32suHoKUSX-OlfjFYARATLc4cRgHdZ',
+    drive_url: 'https://drive.google.com/file/d/1Er32suHoKUSX-OlfjFYARATLc4cRgHdZ/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1Er32suHoKUSX-OlfjFYARATLc4cRgHdZ',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'fefe_felicidade',
+    nome: 'Fefe_Felicidade.PNG',
+    file_id: '1QD3Qv3lDBmfjeP6MIFKl7lv6FaLF0Mtu',
+    drive_url: 'https://drive.google.com/file/d/1QD3Qv3lDBmfjeP6MIFKl7lv6FaLF0Mtu/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1QD3Qv3lDBmfjeP6MIFKl7lv6FaLF0Mtu',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'cavalum',
+    nome: 'Cavalum.png',
+    file_id: '18oXmYkjQlsn5w3rZqFv9EQ73TatlTdDX',
+    drive_url: 'https://drive.google.com/file/d/18oXmYkjQlsn5w3rZqFv9EQ73TatlTdDX/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/18oXmYkjQlsn5w3rZqFv9EQ73TatlTdDX',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'moura_encantada',
+    nome: 'Moura_encantada.png',
+    file_id: '1o_e3H-r26ectKuCQjgOOtBiLSRcY7o-e',
+    drive_url: 'https://drive.google.com/file/d/1o_e3H-r26ectKuCQjgOOtBiLSRcY7o-e/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1o_e3H-r26ectKuCQjgOOtBiLSRcY7o-e',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'sete_caras',
+    nome: 'Sete_caras.png',
+    file_id: '13H5OSHIHCxzN8WHDfD7wNszJYj7ex9xb',
+    drive_url: 'https://drive.google.com/file/d/13H5OSHIHCxzN8WHDfD7wNszJYj7ex9xb/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/13H5OSHIHCxzN8WHDfD7wNszJYj7ex9xb',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'menino_rio',
+    nome: 'Menino_rio.PNG',
+    file_id: '1cLioeGjUp2A8urxtp1Rn4eAvD8JZYpVD',
+    drive_url: 'https://drive.google.com/file/d/1cLioeGjUp2A8urxtp1Rn4eAvD8JZYpVD/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1cLioeGjUp2A8urxtp1Rn4eAvD8JZYpVD',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'xango',
+    nome: 'Xangó.png',
+    file_id: '1-FpTUYKBqUUlVmFVEYIRdth_bL9bIJmI',
+    drive_url: 'https://drive.google.com/file/d/1-FpTUYKBqUUlVmFVEYIRdth_bL9bIJmI/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1-FpTUYKBqUUlVmFVEYIRdth_bL9bIJmI',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'gaizinho',
+    nome: 'Gaizinho.png',
+    file_id: '1Do2GtGXe479Q5j1A3DuWRd3wslG03vOf',
+    drive_url: 'https://drive.google.com/file/d/1Do2GtGXe479Q5j1A3DuWRd3wslG03vOf/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1Do2GtGXe479Q5j1A3DuWRd3wslG03vOf',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'oxala',
+    nome: 'Oxalá.png',
+    file_id: '1Xqqftv5Qs2aIVPvn9QqRA1MNoB2isP31',
+    drive_url: 'https://drive.google.com/file/d/1Xqqftv5Qs2aIVPvn9QqRA1MNoB2isP31/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1Xqqftv5Qs2aIVPvn9QqRA1MNoB2isP31',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'chorona',
+    nome: 'Chorona.png',
+    file_id: '13XXhqz615JeBjQCGTnzl7ogEoXZC0OMy',
+    drive_url: 'https://drive.google.com/file/d/13XXhqz615JeBjQCGTnzl7ogEoXZC0OMy/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/13XXhqz615JeBjQCGTnzl7ogEoXZC0OMy',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'coca',
+    nome: 'Coca.png',
+    file_id: '1T8DXfUusQ1F7wzQMITUTFq81F7ivHJIN',
+    drive_url: 'https://drive.google.com/file/d/1T8DXfUusQ1F7wzQMITUTFq81F7ivHJIN/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1T8DXfUusQ1F7wzQMITUTFq81F7ivHJIN',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'olharao',
+    nome: 'Olharão.PNG',
+    file_id: '1X93TSJ3hQcE_Sy0OMTWztY1KbzXsQikW',
+    drive_url: 'https://drive.google.com/file/d/1X93TSJ3hQcE_Sy0OMTWztY1KbzXsQikW/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1X93TSJ3hQcE_Sy0OMTWztY1KbzXsQikW',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'lisbon_verde',
+    nome: 'lisbon_verde.png',
+    file_id: '174LZdvMVP-dHhRAe2Ztb8lTunGHelH0s',
+    drive_url: 'https://drive.google.com/file/d/174LZdvMVP-dHhRAe2Ztb8lTunGHelH0s/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/174LZdvMVP-dHhRAe2Ztb8lTunGHelH0s',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'lobo_castanho',
+    nome: 'lobo_castanho.png',
+    file_id: '1SZ0oauOlEfsqiMPDJeiYyt2W2J6sjY3Q',
+    drive_url: 'https://drive.google.com/file/d/1SZ0oauOlEfsqiMPDJeiYyt2W2J6sjY3Q/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1SZ0oauOlEfsqiMPDJeiYyt2W2J6sjY3Q',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  },
+  {
+    slug: 'personagem_preto_chapeu',
+    nome: 'personagem_preto_chapeu.png',
+    file_id: '1L-RJLWFnRw7Ikiikpi8LPOObYSNX-AXu',
+    drive_url: 'https://drive.google.com/file/d/1L-RJLWFnRw7Ikiikpi8LPOObYSNX-AXu/view?usp=drivesdk',
+    public_url: 'https://lh3.googleusercontent.com/d/1L-RJLWFnRw7Ikiikpi8LPOObYSNX-AXu',
+    pasta_id: '1GlyxD6BHV_8FEDHrtlho5DIAqwSEWO-D',
+    tipo: 'ser_folclorico',
+    funcao: 'personagem/ser folclórico público',
+    fundo_obrigatorio: 'completamente_transparente'
+  }
+];
 
 function getOfficialAssetManifest_() {
-  return [
-    makeOfficialAsset_('seal', 'ATLAS_VIVO_MILK.png', OFFICIAL_ASSET_IDS.seal, CONFIG.ASSETS_FOLDER_ID, 'selo', 'selo público e assinatura visual do Atlas'),
-    makeOfficialAsset_('fuco', 'Fuco.png', OFFICIAL_ASSET_IDS.fuco, CONFIG.ASSETS_FOLDER_ID, 'dispositivo', 'Crónicas Cãotadas por Fucô'),
-    makeOfficialAsset_('galeria', 'Galeria_Diletante.png', OFFICIAL_ASSET_IDS.galeria, CONFIG.ASSETS_FOLDER_ID, 'dispositivo', 'Galeria Diletante como motor palavra-imagem-bilhete'),
-    makeOfficialAsset_('festival', 'dado_sem_lado_rosa.png', OFFICIAL_ASSET_IDS.festival, CONFIG.ASSETS_FOLDER_ID, 'dispositivo', 'Dado Sem Lado, jogo territorial e regra absurda'),
-    makeOfficialAsset_('reizinho', 'Reizinho.png', OFFICIAL_ASSET_IDS.reizinho, CONFIG.ASSETS_FOLDER_ID, 'dispositivo', 'O Reizinho de sainha e coroa de sardinha'),
-    makeOfficialAsset_('nuno', 'Nuno.png', OFFICIAL_ASSET_IDS.nuno, CONFIG.ASSETS_FOLDER_ID, 'escuta', 'escuta pública e recolha geral'),
-    makeOfficialAsset_('escuta', 'Nuno.png', OFFICIAL_ASSET_IDS.escuta, CONFIG.ASSETS_FOLDER_ID, 'escuta', 'alias de Nuno para compatibilidade no HTML/GS'),
-    makeOfficialAsset_('cow_base', 'vaquinha_constelacao_base.png', OFFICIAL_ASSET_IDS.cow_base, CONFIG.ASSETS_FOLDER_ID, 'milk', 'MILK base para convite territorial'),
-    makeOfficialAsset_('cow_brilho', 'vaquinha_constelacao_brilho.png', OFFICIAL_ASSET_IDS.cow_brilho, CONFIG.ASSETS_FOLDER_ID, 'milk', 'MILK brilhante para nova crónica ou conteúdo recente'),
-    makeOfficialAsset_('cow_destaque', 'vaquinha_constelacao_destaque.png', OFFICIAL_ASSET_IDS.cow_destaque, CONFIG.ASSETS_FOLDER_ID, 'milk', 'MILK em destaque para Galeria Diletante ou foco curatorial'),
-
-    makeOfficialAsset_('alma_penada', 'Alma_penada.png', OFFICIAL_ASSET_IDS.alma_penada, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('fefe_felicidade', 'Fefe_Felicidade.PNG', OFFICIAL_ASSET_IDS.fefe_felicidade, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('cavalum', 'Cavalum.png', OFFICIAL_ASSET_IDS.cavalum, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('moura_encantada', 'Moura_encantada.png', OFFICIAL_ASSET_IDS.moura_encantada, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('sete_caras', 'Sete_caras.png', OFFICIAL_ASSET_IDS.sete_caras, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('menino_rio', 'Menino_rio.PNG', OFFICIAL_ASSET_IDS.menino_rio, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('xango', 'Xangó.png', OFFICIAL_ASSET_IDS.xango, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('gaizinho', 'Gaizinho.png', OFFICIAL_ASSET_IDS.gaizinho, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('oxala', 'Oxalá.png', OFFICIAL_ASSET_IDS.oxala, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('chorona', 'Chorona.png', OFFICIAL_ASSET_IDS.chorona, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('coca', 'Coca.png', OFFICIAL_ASSET_IDS.coca, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('olharao', 'Olharão.PNG', OFFICIAL_ASSET_IDS.olharao, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('lisbon_verde', 'lisbon_verde.png', OFFICIAL_ASSET_IDS.lisbon_verde, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('lobo_castanho', 'lobo_castanho.png', OFFICIAL_ASSET_IDS.lobo_castanho, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público'),
-    makeOfficialAsset_('personagem_preto_chapeu', 'personagem_preto_chapeu.png', OFFICIAL_ASSET_IDS.personagem_preto_chapeu, CONFIG.FOLKLORE_FOLDER_ID, 'ser_folclorico', 'personagem/ser folclórico público')
-  ];
+  return OFFICIAL_ASSET_MANIFEST_REAL.map(function (x) {
+    x.formato_obrigatorio = 'PNG/WebP com canal alfa';
+    x.proibido = 'fundo branco; halo opaco; margem sólida; caixa visível; recorte não transparente';
+    x.validacao_pre_deploy = 'confirmar nome oficial, file_id, drive_url real, public_url real e transparência real antes de gerar GS/HTML';
+    return x;
+  });
 }
 
 function getOfficialFolkloreManifest_() {
@@ -104,6 +333,7 @@ function auditOfficialAssetTransparencyContract_() {
     regra: 'Todos os assets obrigatoriamente precisam ter fundo completamente transparente.',
     formato: 'PNG/WebP com canal alfa',
     proibido: ['fundo branco', 'halo opaco', 'margem sólida', 'caixa visível', 'recorte não transparente'],
-    aplicacao: ['GS', 'HTML', 'Drive', 'GitHub', 'Apps Script', 'Interface pública']
+    aplicacao: ['GS', 'HTML', 'Drive', 'GitHub', 'Apps Script', 'Interface pública'],
+    manifesto: OFFICIAL_ASSET_MANIFEST_REAL
   };
 }
