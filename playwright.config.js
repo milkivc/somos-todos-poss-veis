@@ -6,6 +6,7 @@ module.exports = defineConfig({
   retries: 0,
   use: {
     headless: true,
+    channel: 'msedge',
     viewport: { width: 1440, height: 900 },
     screenshot: 'only-on-failure',
     video: 'retain-on-failure'
