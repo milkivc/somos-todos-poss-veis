@@ -1,0 +1,11 @@
+{
+  "name": "atlas-vivo-milk-public-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:atlas": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.2"
+  }
+}
