@@ -2,6 +2,15 @@ name: Deploy Google Apps Script
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Código.js'
+      - 'Interface.html'
+      - 'appsscript.json'
+      - 'ZZ_AtlasAssetsFix.js'
+      - '.github/workflows/deploy-appscript.yml'
 
 permissions:
   contents: read
@@ -31,10 +40,10 @@ jobs:
             "scriptExtensions": [".js", ".gs"],
             "htmlExtensions": [".html"],
             "jsonExtensions": [".json"],
-            "filePushOrder": [],
-            "skipSubdirectories": false
+            "filePushOrder": ["Código.js", "ZZ_AtlasAssetsFix.js", "Interface.html", "appsscript.json"],
+            "skipSubdirectories": true
           }
           EOF
 
-      - name: Push to Google Apps Script
+      - name: Push official files to Google Apps Script
         run: clasp push --force
