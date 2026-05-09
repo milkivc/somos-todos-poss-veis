@@ -47,3 +47,7 @@ jobs:
 
       - name: Push official files to Google Apps Script
         run: clasp push --force
+
+      - name: Update published web app deployment
+        run: |
+          clasp deploy --deploymentId AKfycbw0X-g5f6dpkBcVl0BcqC0AOZIBA_Q1y7iOHOXKtGds_UmVCD6SV8dbCMP0zm8Ecc6Oaw --description "official-public-atlas-${{ github.sha }}"
