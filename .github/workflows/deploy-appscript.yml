@@ -10,6 +10,7 @@ on:
       - 'Interface.html'
       - 'appsscript.json'
       - 'ZZ_AtlasAssetsFix.js'
+      - 'ZZ_AtlasDynamicFix.js'
       - '.github/workflows/deploy-appscript.yml'
 
 permissions:
@@ -40,7 +41,7 @@ jobs:
             "scriptExtensions": [".js", ".gs"],
             "htmlExtensions": [".html"],
             "jsonExtensions": [".json"],
-            "filePushOrder": ["Código.js", "ZZ_AtlasAssetsFix.js", "Interface.html", "appsscript.json"],
+            "filePushOrder": ["Código.js", "ZZ_AtlasAssetsFix.js", "ZZ_AtlasDynamicFix.js", "Interface.html", "appsscript.json"],
             "skipSubdirectories": true
           }
           EOF
