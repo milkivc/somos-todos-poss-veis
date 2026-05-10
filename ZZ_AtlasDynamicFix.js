@@ -188,3 +188,5 @@ validateSubmission_ = function(p) {
   var txt = clean_(p.texto_principal || p.memory_text || p.titulo || p.frase_curta_publica || p.imagem_drive_id || p.audio_drive_id || p.anexo_id);
   if (!txt) throw new Error('Escreva ou indique o conteúdo que pretende partilhar.');
 };
+
+// DEPLOY_TRIGGER_RUNTIME_VISUAL_FIX_2026_05_10
