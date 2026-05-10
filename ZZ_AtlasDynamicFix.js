@@ -176,6 +176,7 @@ getHealthPayload_ = function() {
   h.desafios_semanais_count = getDesafiosSemanais_().length;
   h.repertorio_territorial_count = getRepertorioTerritorial_().length;
   h.dynamic_fix = 'ZZ_AtlasDynamicFix_2026_05_10';
+  try { h.density_official_import = ensureOfficialDensityImported_(); } catch (e) { h.density_official_import = { ok:false, error:String(e && e.message || e) }; }
   return h;
 };
 
@@ -189,4 +190,20 @@ validateSubmission_ = function(p) {
   if (!txt) throw new Error('Escreva ou indique o conteúdo que pretende partilhar.');
 };
 
-// DEPLOY_TRIGGER_RUNTIME_VISUAL_FIX_2026_05_10
+// DENSIDADE OFICIAL — INE 0011613 Censos 2021. Importa para DENSIDADE_DEMOGRAFICA sem inventar valores.
+var DENSITY_OFFICIAL_CFG = {
+  url: 'https://www.ine.pt/ine/json_indicador/pindica.jsp?op=2&varcd=0011613&lang=PT',
+  fonte: 'INE — Indicador 0011613 — Densidade populacional, Censos 2021',
+  fonte_id: 'INE_0011613_CENSOS_2021',
+  periodo: '2021'
+};
+function classifyOfficialDensity_(n){n=Number(n);if(!isFinite(n))return 'sem_dado';if(n<50)return 'baixa';if(n<150)return 'media_baixa';if(n<500)return 'media';if(n<1500)return 'alta';return 'muito_alta';}
+function densityLight_(c){var m={sem_dado:['azul_frio','#6ecbff','pulso_lacuna'],baixa:['azul','#78d9ff','pulso_baixa'],media_baixa:['ciano_verde','#9cffb8','pulso_media_baixa'],media:['amarelo','#fff27a','pulso_media'],alta:['laranja','#ffb45c','pulso_alta'],muito_alta:['rosa_vermelho','#ff5f8f','pulso_muito_alta']};return m[c]||m.sem_dado;}
+function normOfficial_(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
+function numOfficial_(v){if(v===null||v===undefined||v==='')return '';var s=String(v).replace(/\s/g,'').replace(',','.');var n=Number(s);return isFinite(n)?n:'';}
+function currentDensityRows_(){var sh=ss_().getSheetByName('DENSIDADE_DEMOGRAFICA');return sh?Math.max(0,sh.getLastRow()-1):0;}
+function ensureOfficialDensityImported_(){var existing=currentDensityRows_();if(existing>1000)return {ok:true,status:'already_imported',rows:existing,source:DENSITY_OFFICIAL_CFG.fonte_id};return importOfficialDensityINE0011613_();}
+function importOfficialDensityINE0011613_(){var base=safeReadSheetByName_('FREGUESIAS_BASE');if(base.length<1000)throw new Error('FREGUESIAS_BASE insuficiente para cruzamento oficial');var byCode={},byName={};base.forEach(function(r){var code=String(pick_(r,['codigo_freguesia','freguesia_id_oficial'])).replace(/\D/g,'');if(code.length<6)code=('000000'+code).slice(-6);var freg=clean_(pick_(r,['freguesia']));var mun=clean_(pick_(r,['municipio','concelho']));if(code)byCode[code]={code:code,freguesia:freg,municipio:mun};if(freg&&mun)byName[normOfficial_(freg+' '+mun)]={code:code,freguesia:freg,municipio:mun};});var res=UrlFetchApp.fetch(DENSITY_OFFICIAL_CFG.url,{muteHttpExceptions:true,followRedirects:true});if(res.getResponseCode()<200||res.getResponseCode()>=300)throw new Error('INE HTTP '+res.getResponseCode());var data=JSON.parse(res.getContentText('UTF-8'));var found={};function scan(x){if(!x)return;if(Array.isArray(x)){x.forEach(scan);return;}if(typeof x==='object'){var vals=[],ks=Object.keys(x);ks.forEach(function(k){var v=x[k];if(v!==null&&typeof v!=='object')vals.push(String(v));});var code='';vals.forEach(function(v){var m=String(v).match(/\b\d{6}\b/);if(m&&byCode[m[0]])code=m[0];});if(!code){var joined=normOfficial_(vals.join(' '));for(var nm in byName){if(joined.indexOf(nm)>=0){code=byName[nm].code;break;}}}var value='';ks.forEach(function(k){if(value===''){var nk=normOfficial_(k);if(nk.indexOf('valor')>=0||nk==='value'||nk.indexOf('obs_value')>=0)value=numOfficial_(x[k]);}});if(value===''){ks.forEach(function(k){if(value===''){var nk=normOfficial_(k);if(nk.indexOf('geo')<0&&nk.indexOf('cod')<0&&nk.indexOf('ano')<0&&nk.indexOf('period')<0){var n=numOfficial_(x[k]);if(n!==''&&n>=0&&n<50000)value=n;}}});}if(code&&value!==''&&!found[code])found[code]=value;ks.forEach(function(k){if(typeof x[k]==='object')scan(x[k]);});}}
+scan(data);var rows=[];Object.keys(byCode).forEach(function(code){var b=byCode[code],dens=found[code],cls=classifyOfficialDensity_(dens),light=densityLight_(cls);if(dens!==undefined){rows.push(['PT-FREG-'+code,code,b.freguesia,b.municipio,'','',dens,cls,DENSITY_OFFICIAL_CFG.fonte,DENSITY_OFFICIAL_CFG.url,DENSITY_OFFICIAL_CFG.periodo,'ativo_densidade_oficial',light[0],light[2],'sim','sim','publico','validado_por_fonte_oficial','IMPORTADO_INE_0011613','Densidade demográfica oficial INE 0011613 ligada à MILK por classe de luz territorial.','MILK',Utilities.formatDate(new Date(),'Europe/Lisbon','yyyy-MM-dd HH:mm:ss'),DENSITY_OFFICIAL_CFG.fonte_id,'usar_classe_densidade_no_mapa']);}});if(rows.length<1000)throw new Error('Parser INE não confirmou granularidade suficiente: '+rows.length);var sh=ss_().getSheetByName('DENSIDADE_DEMOGRAFICA');var header=['territorio_id','freguesia_id_oficial','freguesia','municipio','populacao','area_km2','densidade_demografica','classe_densidade','fonte_populacao','url_fonte','data_fonte','estado_visual','luz_milk','efeito_luz','regra_anti_centralidade_famosa','silencio_lido_como_vestigio','visibilidade','validacao_humana','estado_importacao','observacao_curatorial','responsavel','data_importacao','hash_ou_id_fonte','proxima_acao'];sh.clearContents();sh.getRange(1,1,1,header.length).setValues([header]);for(var i=0;i<rows.length;i+=500)sh.getRange(i+2,1,Math.min(500,rows.length-i),header.length).setValues(rows.slice(i,i+500));try{ss_().getSheetByName('IMPORTACAO_TERRITORIAL_LOG').appendRow([new Date(),'DENSIDADE_OFICIAL_IMPORT',rows.length,DENSITY_OFFICIAL_CFG.fonte_id,DENSITY_OFFICIAL_CFG.url]);}catch(e){}return {ok:true,status:'imported',rows:rows.length,source:DENSITY_OFFICIAL_CFG.fonte_id};}
+
+// DEPLOY_TRIGGER_DENSITY_OFFICIAL_2026_05_10
