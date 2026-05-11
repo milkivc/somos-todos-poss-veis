@@ -1,7 +1,7 @@
 /**
  * Atlas Vivo MILK — patch público final de runtime sem alterar Interface.html.
- * Correção cirúrgica: substitui assets laterais com branco embutido e força cor real visível
- * nas MILKs por classe de densidade, com hue-rotate sobre o corpo do asset.
+ * Regra restaurada: não substituir nem redesenhar assets oficiais.
+ * A densidade atua apenas na luz/contorno das MILKs, sem alterar o asset original.
  */
 
 var doGet_BASE_INTERFACE_RUNTIME_FIX_ = doGet;
@@ -27,21 +27,18 @@ function buildAtlasRuntimeVisualPatch_() {
     '.leaflet-marker-icon[src*=marker-icon],.leaflet-marker-shadow{display:none!important;opacity:0!important;pointer-events:none!important}\n' +
     '.leaflet-marker-icon,.leaflet-marker-icon img,.device,.device img{background:transparent!important;border:0!important}\n' +
     '.device{background:transparent!important;box-shadow:none!important;border:0!important;backdrop-filter:none!important;overflow:visible!important}\n' +
-    '.device img,.asset-cleaned{background:transparent!important;box-shadow:none!important;border:0!important}\n' +
-    '#fucoImg,#galeriaImg{display:none!important;visibility:hidden!important;opacity:0!important}\n' +
-    '#dogDevice::before{content:"🐕";font-size:58px;line-height:1;display:block;filter:drop-shadow(0 0 10px rgba(255,255,255,.22)) drop-shadow(0 0 18px rgba(118,210,255,.18));animation:devicePulse 4.6s ease-in-out infinite}\n' +
-    '#galleryDevice::before{content:"DILETANTE\\A GALERIA";white-space:pre;display:flex;align-items:center;justify-content:center;width:74px;height:74px;border-radius:17px;background:linear-gradient(135deg,rgba(255,67,164,.92),rgba(255,226,75,.92),rgba(78,160,255,.92));color:#071018;font-weight:900;font-size:12px;line-height:1.02;letter-spacing:.04em;text-align:center;box-shadow:0 0 12px rgba(255,255,255,.12);animation:devicePulse 5.2s ease-in-out infinite}\n' +
-    '@keyframes devicePulse{0%,100%{transform:translateY(0) scale(.98);opacity:.92}50%{transform:translateY(-5px) scale(1.04);opacity:1}}\n' +
-    '#festivalImg,#reizinhoImg,#escutaImg{mix-blend-mode:normal!important;background:transparent!important;filter:drop-shadow(0 0 11px rgba(255,255,255,.08))!important}\n' +
+    '.device::before,#dogDevice::before,#galleryDevice::before{content:none!important;display:none!important}\n' +
+    '.device img{display:block!important;visibility:visible!important;opacity:1!important;background:transparent!important;border:0!important;box-shadow:none!important}\n' +
+    '#fucoImg,#galeriaImg,#festivalImg,#reizinhoImg,#escutaImg{display:block!important;visibility:visible!important;opacity:1!important;background:transparent!important;mix-blend-mode:normal!important;filter:none!important}\n' +
     '.cowMarker{transform:scale(.22)!important;transform-origin:center center!important;opacity:.78!important}\n' +
     '.publicMilk{opacity:.90!important}.territoryMilk{opacity:.70!important}\n' +
-    '.cowMarker img{background:transparent!important;border:0!important;box-shadow:none!important;animation:milkCorePulse 3.1s ease-in-out infinite;filter:brightness(1.13) saturate(1.06) drop-shadow(0 0 2px rgba(255,255,255,.52)) drop-shadow(0 0 6px rgba(110,210,255,.28))!important}\n' +
-    '.density-sem_dado img{filter:grayscale(.35) brightness(1.08) saturate(.92) drop-shadow(0 0 2px rgba(150,220,255,.54)) drop-shadow(0 0 7px rgba(150,220,255,.22))!important}\n' +
-    '.density-baixa img{filter:hue-rotate(0deg) brightness(1.16) saturate(1.35) drop-shadow(0 0 3px rgba(70,145,255,.78)) drop-shadow(0 0 9px rgba(70,145,255,.34))!important}\n' +
-    '.density-media_baixa img{filter:hue-rotate(38deg) brightness(1.20) saturate(1.55) drop-shadow(0 0 3px rgba(40,245,255,.82)) drop-shadow(0 0 9px rgba(40,245,255,.38))!important}\n' +
-    '.density-media img{filter:hue-rotate(205deg) brightness(1.34) saturate(1.85) drop-shadow(0 0 4px rgba(255,224,55,.92)) drop-shadow(0 0 12px rgba(255,224,55,.52))!important}\n' +
-    '.density-alta img{filter:hue-rotate(238deg) brightness(1.30) saturate(2.05) drop-shadow(0 0 4px rgba(255,133,38,.96)) drop-shadow(0 0 13px rgba(255,133,38,.55))!important}\n' +
-    '.density-muito_alta img{filter:hue-rotate(285deg) brightness(1.26) saturate(2.25) drop-shadow(0 0 5px rgba(255,38,82,1)) drop-shadow(0 0 15px rgba(255,38,82,.62))!important}\n' +
+    '.cowMarker img{background:transparent!important;border:0!important;box-shadow:none!important;animation:milkCorePulse 3.1s ease-in-out infinite;filter:brightness(1.04) saturate(1.02) drop-shadow(0 0 2px rgba(255,255,255,.42)) drop-shadow(0 0 6px rgba(110,210,255,.24))!important}\n' +
+    '.density-sem_dado img{filter:brightness(1.04) saturate(1.02) drop-shadow(0 0 2px rgba(150,220,255,.48)) drop-shadow(0 0 7px rgba(150,220,255,.22))!important}\n' +
+    '.density-baixa img{filter:brightness(1.06) saturate(1.06) drop-shadow(0 0 3px rgba(70,145,255,.82)) drop-shadow(0 0 10px rgba(70,145,255,.42))!important}\n' +
+    '.density-media_baixa img{filter:brightness(1.07) saturate(1.07) drop-shadow(0 0 3px rgba(40,245,255,.86)) drop-shadow(0 0 11px rgba(40,245,255,.46))!important}\n' +
+    '.density-media img{filter:brightness(1.08) saturate(1.08) drop-shadow(0 0 4px rgba(255,224,55,.94)) drop-shadow(0 0 12px rgba(255,224,55,.54))!important}\n' +
+    '.density-alta img{filter:brightness(1.09) saturate(1.09) drop-shadow(0 0 4px rgba(255,133,38,.98)) drop-shadow(0 0 13px rgba(255,133,38,.58))!important}\n' +
+    '.density-muito_alta img{filter:brightness(1.10) saturate(1.10) drop-shadow(0 0 5px rgba(255,38,82,1)) drop-shadow(0 0 15px rgba(255,38,82,.66))!important}\n' +
     '@keyframes milkCorePulse{0%,100%{opacity:.58;transform:scale(.78)}50%{opacity:.96;transform:scale(1.05)}}\n' +
     '#cardGatilhoBlock{display:none!important}\n' +
     '.floatingTickets{position:fixed;left:148px;bottom:34px;z-index:9000;display:flex;flex-direction:column;gap:10px;max-width:420px;pointer-events:none}\n' +
