@@ -1,6 +1,7 @@
 /**
  * Atlas Vivo MILK — Importador final de densidade oficial a partir da folha RAW INE.
  * Não expõe dados sensíveis. Escreve somente dados públicos oficiais no Sheets.
+ * FORCE_WORKFLOW_TRIGGER_2026_05_11_A
  */
 function importOfficialDensityINE0011613_() {
   var ss = ss_();
@@ -36,21 +37,7 @@ function importOfficialDensityINE0011613_() {
     var dens = found[code];
     var cls = classifyOfficialDensity_(dens);
     var light = densityLight_(cls);
-    rows.push([
-      'PT-FREG-' + code, code, freg, mun, '', '', dens === undefined ? '' : dens,
-      cls,
-      'INE — Indicador 0011613 — Densidade populacional, Censos 2021',
-      'https://www.ine.pt/ine/json_indicador/pindica.jsp?op=2&varcd=0011613&lang=PT',
-      '2021',
-      'ativo_densidade_oficial',
-      light[0], light[2],
-      'sim','sim','publico','validado_por_fonte_oficial',
-      dens === undefined ? 'SEM_DADO_INE_0011613' : 'IMPORTADO_INE_0011613_RAW',
-      'Densidade demográfica oficial INE 0011613 ligada à MILK por classe de luz territorial.',
-      'MILK', Utilities.formatDate(new Date(), 'Europe/Lisbon', 'yyyy-MM-dd HH:mm:ss'),
-      'INE_0011613_CENSOS_2021_RAW_SHEET',
-      dens === undefined ? 'verificar_correspondencia_codigo' : 'usar_classe_densidade_no_mapa'
-    ]);
+    rows.push(['PT-FREG-' + code, code, freg, mun, '', '', dens === undefined ? '' : dens, cls, 'INE — Indicador 0011613 — Densidade populacional, Censos 2021', 'https://www.ine.pt/ine/json_indicador/pindica.jsp?op=2&varcd=0011613&lang=PT', '2021', 'ativo_densidade_oficial', light[0], light[2], 'sim','sim','publico','validado_por_fonte_oficial', dens === undefined ? 'SEM_DADO_INE_0011613' : 'IMPORTADO_INE_0011613_RAW', 'Densidade demográfica oficial INE 0011613 ligada à MILK por classe de luz territorial.', 'MILK', Utilities.formatDate(new Date(), 'Europe/Lisbon', 'yyyy-MM-dd HH:mm:ss'), 'INE_0011613_CENSOS_2021_RAW_SHEET', dens === undefined ? 'verificar_correspondencia_codigo' : 'usar_classe_densidade_no_mapa']);
   });
   var sh = ss.getSheetByName('DENSIDADE_DEMOGRAFICA');
   var header = ['territorio_id','freguesia_id_oficial','freguesia','municipio','populacao','area_km2','densidade_demografica','classe_densidade','fonte_populacao','url_fonte','data_fonte','estado_visual','luz_milk','efeito_luz','regra_anti_centralidade_famosa','silencio_lido_como_vestigio','visibilidade','validacao_humana','estado_importacao','observacao_curatorial','responsavel','data_importacao','hash_ou_id_fonte','proxima_acao'];
