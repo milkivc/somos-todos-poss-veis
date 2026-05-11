@@ -11,6 +11,7 @@ on:
       - 'appsscript.json'
       - 'ZZ_AtlasAssetsFix.js'
       - 'ZZ_AtlasDynamicFix.js'
+      - 'ZZ_AtlasDensityRunner.js'
       - 'ZZ_AtlasInterfaceRuntimeFix.js'
       - '.github/workflows/deploy-appscript.yml'
 
@@ -42,13 +43,19 @@ jobs:
             "scriptExtensions": [".js", ".gs"],
             "htmlExtensions": [".html"],
             "jsonExtensions": [".json"],
-            "filePushOrder": ["Código.js", "ZZ_AtlasAssetsFix.js", "ZZ_AtlasDynamicFix.js", "ZZ_AtlasInterfaceRuntimeFix.js", "Interface.html", "appsscript.json"],
+            "filePushOrder": ["Código.js", "ZZ_AtlasAssetsFix.js", "ZZ_AtlasDynamicFix.js", "ZZ_AtlasDensityRunner.js", "ZZ_AtlasInterfaceRuntimeFix.js", "Interface.html", "appsscript.json"],
             "skipSubdirectories": true
           }
           EOF
 
       - name: Push official files to Google Apps Script
         run: clasp push --force
+
+      - name: Import official density into Sheets
+        run: clasp run executarImportacaoDensidadeOficialAtlas
+
+      - name: Verify official density import
+        run: clasp run verificarDensidadeOficialAtlas
 
       - name: Update published web app deployment
         run: |
