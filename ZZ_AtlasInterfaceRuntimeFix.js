@@ -7,6 +7,7 @@
 var doGet_BASE_INTERFACE_RUNTIME_FIX_ = doGet;
 
 doGet = function(e) {
+  try { ensureOfficialDensityImported_(); } catch (densityErr) {}
   var r = String((e && e.parameter && e.parameter.r) || '').toLowerCase();
   var out = doGet_BASE_INTERFACE_RUNTIME_FIX_(e);
   if (r) return out;
@@ -45,8 +46,6 @@ function buildAtlasRuntimeVisualPatch_() {
     '<script id="ATLAS_RUNTIME_VISUAL_FIX_2026_05_10">\n' +
     '(function(){\n' +
     'function C(v){return String(v||\"\").replace(/\\s+/g,\" \" ).trim()}\n' +
-    'function A(x){return Array.isArray(x)?x:[]}\n' +
-    'function D(){return window.__ATLAS_DATA__||window.BOOTSTRAP||{}}\n' +
     'function cleanImg(img){if(!img||img.dataset.alphaCleaned)return;img.dataset.alphaCleaned=\"1\";var src=img.currentSrc||img.src;if(!src)return;var probe=new Image();probe.crossOrigin=\"anonymous\";probe.onload=function(){try{var w=probe.naturalWidth,h=probe.naturalHeight;if(!w||!h)return;var cn=document.createElement(\"canvas\");cn.width=w;cn.height=h;var ctx=cn.getContext(\"2d\",{willReadFrequently:true});ctx.drawImage(probe,0,0,w,h);var im=ctx.getImageData(0,0,w,h),d=im.data;for(var i=0;i<d.length;i+=4){var r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];var max=Math.max(r,g,b),min=Math.min(r,g,b);var white=(r>222&&g>222&&b>222);var nearWhite=(r>205&&g>205&&b>205&&(max-min)<34);var paleShadow=(r>178&&g>178&&b>178&&(max-min)<28);if(white){d[i+3]=0}else if(nearWhite){d[i+3]=Math.min(a,18)}else if(paleShadow){d[i+3]=Math.min(a,42)}}ctx.putImageData(im,0,0);img.src=cn.toDataURL(\"image/png\");img.classList.add(\"asset-cleaned\");}catch(e){img.classList.add(\"asset-clean-failed\")}};probe.onerror=function(){img.classList.add(\"asset-clean-failed\")};probe.src=src}\n' +
     'function cleanTargets(){document.querySelectorAll(\"#fucoImg,#galeriaImg,.device img,.leaflet-marker-icon img\").forEach(cleanImg)}\n' +
     'function hideG(){var b=document.getElementById(\"cardGatilhoBlock\");if(b)b.style.display=\"none\";var g=document.getElementById(\"cardGatilho\");if(g)g.textContent=\"\"}\n' +
