@@ -12,6 +12,7 @@ on:
       - 'ZZ_AtlasAssetsFix.js'
       - 'ZZ_AtlasDynamicFix.js'
       - 'ZZ_AtlasDensityRunner.js'
+      - 'ZZ_AtlasBackendPublicLayerFix.js'
       - 'ZZ_AtlasInterfaceRuntimeFix.js'
       - '.github/workflows/deploy-appscript.yml'
 
@@ -43,7 +44,7 @@ jobs:
             "scriptExtensions": [".js", ".gs"],
             "htmlExtensions": [".html"],
             "jsonExtensions": [".json"],
-            "filePushOrder": ["Código.js", "ZZ_AtlasAssetsFix.js", "ZZ_AtlasDynamicFix.js", "ZZ_AtlasDensityRunner.js", "ZZ_AtlasInterfaceRuntimeFix.js", "Interface.html", "appsscript.json"],
+            "filePushOrder": ["Código.js", "ZZ_AtlasAssetsFix.js", "ZZ_AtlasDynamicFix.js", "ZZ_AtlasDensityRunner.js", "ZZ_AtlasBackendPublicLayerFix.js", "ZZ_AtlasInterfaceRuntimeFix.js", "Interface.html", "appsscript.json"],
             "skipSubdirectories": true
           }
           EOF
